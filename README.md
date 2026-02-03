@@ -1,2 +1,0 @@
-# yuzudoro
-A pomodoro timer
