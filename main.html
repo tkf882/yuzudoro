@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="main.css">
+
+  <title>Yuzudoro</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/yuzu.png" />
+
+</head>
+
+<body>
+
+  <div class="overlay">
+    <div class="create-task-modal">
+      <h2>Create new task</h2>
+      <input class="create-task-input" placeholder="Currently working on...">
+      <div>
+        <button class="task-input-button task-input-button-selected">25/5</button>
+        <button class="task-input-button">30/10</button>
+        <button class="task-input-button">50/10</button>
+      </div>
+      
+      <div>
+        <button class="task-input-button">Cancel</button>
+        <button class="task-input-button">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="header-left">
+      <img class="icon" src="./assets/yuzu.png">
+      <a href="https://github.com/tkf882"><h2>Yuzudoro</h2></a>
+    </div>
+
+    <div class="header-right">
+      <button class="header-button">
+        <img class="header-button-img" src="./assets/moon.svg">
+      </button>
+    </div>
+  </div>
+
+  <div class="background-image">
+    <div class="blur-container">
+      <div class="main-content">
+
+        <img class="break-image" src="./assets/break.png">
+
+        <div class="timer-container">
+
+          <h1 class="timer">25:00</h1>
+          <div class="control-container">
+            <button class="timer-button-sub">
+              <img class="timer-button-sub-img" src="./assets/player-skip-back.svg">
+            </button>
+            <button class="timer-button">
+              <img class="timer-button-img" src="./assets/player-play.svg">
+            </button>
+            <button class="timer-button-sub">
+              <img class="timer-button-sub-img" src="./assets/player-skip-forward.svg">
+            </button>
+          </div>
+
+        </div>
+
+
+        <div class="task-selector-container">
+          <div class="task-selector-dropdown">
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p><span style="color: rgb(150, 150, 150)">New Task</span></p>
+              </div>
+              <img class="task-selector-img" src="./assets/plus.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>Studying</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>Working on thing</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>A well formatted and long task name</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>a poorlyformattedandlongtasknameaaaaa</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>a poorlyformattedandlongtasknameaaaaa</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+            <div class="task-option">
+              <div class="task-selector-text-container">
+                <p>a wokring on this website</p>
+              </div>
+              <img class="task-selector-img" src="./assets/settings.svg">
+            </div>
+
+
+
+          </div>
+          <div class="task-selector-text-container">
+            <p>Studying</p>
+          </div>
+          
+          <button class="task-selector-button">
+            <img class="task-selector-img" src="./assets/drop-down-arrow.svg">
+          </button>
+        </div>
+
+        
+        
+
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <h1>Good morning!</h1>
+    
+    <div class="dashboard-grid">
+      
+      <div class="dashboard-container">
+        
+        <div class="task-stat-flex">
+          <div>
+
+            <h1>Session stats:</h1>
+
+            <div class="task-stat-container">
+              <div class="task-name-container">
+                <h2>task1</h2>
+              </div>
+              <div class="stat-hour-container">
+                <p>24h (Past two weeks)</p>
+                <p>136h (Total)</p>
+              </div>
+            </div>
+            
+            <div class="task-stat-container">
+              <div class="task-name-container">
+                <h2>Studyingaaaaaaaaaaaaaaa</h2>
+              </div>
+              <div class="stat-hour-container">
+                <p>24h (Past two weeks)</p>
+                <p>136h (Total)</p>
+              </div>
+            </div>
+
+            <div class="task-stat-container">
+              <div class="task-name-container">
+                <h2>working on this website</h2>
+              </div>
+              <div class="stat-hour-container">
+                <p>24h (Past two weeks)</p>
+                <p>136h (Total)</p>
+              </div>
+            </div>
+
+            <div class="task-stat-container">
+              <div class="task-name-container">
+                <h2>A very long but well formatted task</h2>
+              </div>
+              <div class="stat-hour-container">
+                <p>24h (Past two weeks)</p>
+                <p>136h (Total)</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="task-stat-container">
+            <h2>Total</h2>
+            <div class="stat-hour-container">
+              <p>24h (Past two weeks)</p>
+              <p>136h (Total)</p>
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+      </div>
+
+      <div class="small-panels">
+        <div class="dashboard-container">
+          <div class="stats-chart-container">
+            <div class="stats-chart-date">
+              <p>Today</p>
+              <p>Jan 21</p>
+              <p>Jan 14</p>
+            </div>
+
+            <div class="bar-chart">
+    
+              <div class="bar">
+                <div class="filled" style="flex: 8">
+                  <div class="bar-stack-left" style="flex: 6; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (6h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 16; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 10">
+                  <div class="bar-stack-left" style="flex: 5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (5h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 3; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (3h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 2; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (2h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 14; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 20">
+                  <div class="bar-stack-left" style="flex: 15; background-color: lightpink;">
+                    <div class="bar-stack-tooltip">Task 4 (15h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 3; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (3h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 1; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (1h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 4; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 0">
+                </div>
+                <div class="bar-stack" style="flex: 24; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 3">
+                  <div class="bar-stack-left" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 0.5; background-color: lightpink;">
+                    <div class="bar-stack-tooltip">Task 4 (0.5h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 0.5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (0.5h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 21; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 6">
+                  <div class="bar-stack-left bar-stack-right" style="flex: 6; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (6h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 18; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 24">
+                  <div class="bar-stack-left" style="flex: 23.5; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (23.5h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 0.5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (0.5h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 8">
+                  <div class="bar-stack-left" style="flex: 6; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (6h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 16; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 10">
+                  <div class="bar-stack-left" style="flex: 5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (5h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 3; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (3h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 2; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (2h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 14; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 20">
+                  <div class="bar-stack-left" style="flex: 15; background-color: lightpink;">
+                    <div class="bar-stack-tooltip">Task 4 (15h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 3; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (3h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 1; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (1h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 4; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 0">
+                </div>
+                <div class="bar-stack" style="flex: 24; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 3">
+                  <div class="bar-stack-left" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 0.5; background-color: lightpink;">
+                    <div class="bar-stack-tooltip">Task 4 (0.5h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 0.5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (0.5h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 21; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 6">
+                  <div class="bar-stack-left bar-stack-right" style="flex: 6; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (6h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 18; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 24">
+                  <div class="bar-stack-left" style="flex: 23.5; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (23.5h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 0.5; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (0.5h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+              <div class="bar">
+                <div class="filled" style="flex: 20">
+                  <div class="bar-stack-left" style="flex: 15; background-color: lightpink;">
+                    <div class="bar-stack-tooltip">Task 4 (15h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 3; background-color: lightgreen;">
+                    <div class="bar-stack-tooltip">Task 3 (3h)</div>
+                  </div>
+                  <div class="bar-stack" style="flex: 2; background-color: lightblue;">
+                    <div class="bar-stack-tooltip">Task 1 (2h)</div>
+                  </div>
+                  <div class="bar-stack-right" style="flex: 1; background-color: lightcoral;">
+                    <div class="bar-stack-tooltip">Task 2 (1h)</div>
+                  </div>
+                </div>
+                <div class="bar-stack" style="flex: 4; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-container">
+          <h1>About</h1>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto soluta placeat libero eius. Ducimus quia culpa quod alias modi est, maiores animi? Ad odit mollitia corrupti accusamus aspernatur quibusdam sint.</p>
+          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora labore accusantium, magnam animi dolore dolorum culpa officiis obcaecati doloribus corrupti placeat neque maxime cupiditate eveniet repellat iure architecto eaque soluta!</p>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+    
+  </div>
+    
+  <div class="footer">
+    <p>Created by tkf882</p>
+    <button class="footer-button">
+      <a href="https://github.com/tkf882">
+        <img class="footer-button-img" src="./assets/github.svg">
+      </a>
+    </button>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+.background-image {
+  position: relative;
+  display: flex;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  /* box-shadow: 0 0 300px rgb(255, 255, 255) inset; */
+
+  background: url('./assets/light4.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.blur-container {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  /* background-color: lightblue; */
+  /* background-color: rgb(220, 216, 192); */
+  height: 100vh;
+  padding-top: 80px;
+  /* width: 100vw; */
+}

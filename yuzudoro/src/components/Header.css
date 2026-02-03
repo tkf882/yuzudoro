@@ -1,0 +1,40 @@
+
+.header {
+  position: absolute;
+  z-index: 30;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+
+  padding: 10px 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: rgb(247, 247, 247);
+}
+.header h2 {
+  color: rgb(209, 168, 32);
+}
+.header-left, .header-right  {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+}
+.header-button {
+  border: none;
+  background-color: rgba(0, 0, 0 ,0);
+
+  cursor: pointer;
+
+}
+.header-button-img {
+  height: 30px;
+  width: 30px;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(102%) contrast(87%);
+}

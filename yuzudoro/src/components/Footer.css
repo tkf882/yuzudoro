@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 40px;
+
+
+  background-image: linear-gradient(to top, rgb(78, 78, 75), rgba(55, 55, 55, 1));
+  /* width: 100%; */
+}
+.footer h1, .footer h2, .footer p, .footer a {
+  color: rgb(219, 181, 121);
+}
+.footer-button {
+  border: none;
+  background-color: rgba(0, 0, 0 ,0);
+
+  margin-top: 10px;
+
+  cursor: pointer;
+}
+.footer-button-img {
+  width: 30px;
+  height: 30px;
+  filter: brightness(0) saturate(100%) invert(86%) sepia(88%) saturate(424%) hue-rotate(311deg) brightness(89%) contrast(92%);
+}
