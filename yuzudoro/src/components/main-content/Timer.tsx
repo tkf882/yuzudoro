@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import alarm from '../../assets/alarm.wav';
 
 import './Timer.css'
 
@@ -8,11 +9,11 @@ import skipForward from '../../assets/player-skip-forward.svg';
 import play from '../../assets/player-play.svg';
 import pause from '../../assets/player-pause.svg';
 
-export function Timer() {
-  const [timer, setTimer] = useState(3); // in seconds
-  const [timerStatus, setTimerStatus] = useState(false);
-  const [onBreak, setOnBreak] = useState(false);
+interface timerProps {
+  darkmode: boolean;
+}
 
+export function Timer({darkmode}:timerProps) {
   // 5:00 = 300
   // 10:00 = 600
   // 25:00 = 1500
@@ -21,9 +22,13 @@ export function Timer() {
 
   // Minutes: Math.floor(timer/60)
   // Seconds: timer%60
-  
+  const [timer, setTimer] = useState(3); // in seconds
+  const [timerStatus, setTimerStatus] = useState(false);
+  const [onBreak, setOnBreak] = useState(false);
+
 
   useEffect(() => {
+    const audio = new Audio(alarm)
     let timerIntervalId:number = 1;
 
     timerIntervalId = setInterval(function() {
@@ -33,6 +38,7 @@ export function Timer() {
         if (timer <= 0) {
           console.log(timer);
           console.log('STOP')
+          audio.play();
           if (onBreak) {
             setTimer(3);
           } else {
@@ -56,33 +62,32 @@ export function Timer() {
   const min:number = Math.floor(timer/60);
   const sec:number = timer%60;
 
+  const timeFormat:string = `${min<10 ? '0' : ''}${min}:${sec<10 ? '0' : ''}${sec}`;
+
 
   return (
     <>
-      <img className="break-image" src={breakImage}/>
+      <title>{`${timeFormat} - Yuzudoro`}</title>
 
-      <div className="timer-container">
-
-        <h1 className="timer">{`${min<10 ? '0' : ''}${min}:${sec<10 ? '0' : ''}${sec}`}</h1>
+      <img className={`break-image ${!onBreak ? 'break-image-focus' : ''}`} src={breakImage}/>
+      <h2 className={`state-text ${darkmode ? 'state-text-dark' : ''}`}>{onBreak ? 'Let\'s take a break.' : 'Let\'s focus.'}</h2>
+      <div className={`timer-container ${darkmode ? 'timer-container-dark' : ''}`}>
+        <h1 className={`timer ${darkmode ? 'timer-dark' : ''}`}>{timeFormat}</h1>
         <div className="control-container">
           <button className="timer-button-sub">
-            <img className="timer-button-sub-img" src={skipBackward}/>
+            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipBackward}/>
           </button>
-          <button className="timer-button">
+          <button className={`timer-button ${darkmode ? 'timer-button-dark' : ''}`}>
             {timerStatus
-              ? <img className="timer-button-img" src={pause} onClick={pausePlay}/> 
-              : <img className="timer-button-img" src={play} onClick={pausePlay}/>
+              ? <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={pause} onClick={pausePlay}/> 
+              : <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={play} onClick={pausePlay}/>
             }
           </button>
           <button className="timer-button-sub">
-            <img className="timer-button-sub-img" src={skipForward}/>
+            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipForward}/>
           </button>
         </div>
-
       </div>
-
-
-    </>
-          
+    </>  
   )
 }

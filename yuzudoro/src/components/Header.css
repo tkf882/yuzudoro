@@ -1,5 +1,4 @@
-
-.header {
+.header, .header-dark {
   position: absolute;
   z-index: 30;
   top: 0px;
@@ -12,8 +11,17 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: rgb(247, 247, 247);
+  /* Light mode */
+  background-color: rgb(247, 247, 247); 
+
+  /* transition: background-color 0.3s; */
+
 }
+.header-dark {
+  /* Dark mode */
+  background-color: rgb(55, 55, 55);
+}
+
 .header h2 {
   color: rgb(209, 168, 32);
 }
@@ -36,5 +44,25 @@
 .header-button-img {
   height: 30px;
   width: 30px;
+
+  /* Light mode */
   filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(102%) contrast(87%);
+
+  /* transition: filter 0.3s; */
+}
+.header-button-img:hover {
+  filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(122%) contrast(87%);
+}
+
+.header-button-img-dark {
+  height: 30px;
+  width: 30px;
+
+  /* Dark mode */
+  filter: brightness(0) saturate(100%) invert(86%) sepia(88%) saturate(424%) hue-rotate(311deg) brightness(89%) contrast(92%);
+
+  /* transition: filter 0.3s; */
+}
+.header-button-img-dark:hover {
+  filter: brightness(0) saturate(100%) invert(86%) sepia(88%) saturate(424%) hue-rotate(311deg) brightness(109%) contrast(92%);
 }

@@ -5,11 +5,15 @@ import { TaskSelector } from './components/main-content/TaskSelector';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Footer } from './components/Footer';
 
+import { useState } from 'react'
+
 import './App.css';
 
 import yuzuIcon from './assets/yuzu.png';
 
 function App() {
+
+  const [darkmode, setDarkmode] = useState(false);
 
   return (
     <>
@@ -27,18 +31,23 @@ function App() {
 
       <Overlay/>
 
-      <Header/>
+      <Header
+        darkmode={darkmode}
+        setDarkmode={setDarkmode}
+      />
 
-      <div className="background-image">
-        <div className="blur-container">
+      <div className={`background-image ${darkmode ? 'background-image-dark' : ''}`}>
           <div className="main-content">
             
-            <Timer/>
+            <Timer
+              darkmode={darkmode}
+            />
 
-            <TaskSelector/>
+            <TaskSelector
+              darkmode={darkmode}
+            />
 
           </div>
-        </div>
       </div>
 
       <Dashboard />

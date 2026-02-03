@@ -8,9 +8,10 @@
   padding: 20px 10vw;
   /* padding: 20px 400px; */
 
-	background-image: linear-gradient(#EFEDE8 2px, transparent 2px), linear-gradient(to right, #EFEDE8 2px, transparent 2px);
+  background-color: rgb(247, 247, 247);
+	/* background-image: linear-gradient(#EFEDE8 2px, transparent 2px), linear-gradient(to right, #EFEDE8 2px, transparent 2px);
 	background-size: 10px 10px;
-	background-color: #F7F7F7;	
+	background-color: #F7F7F7;	 */
 }
 
 .small-panels {

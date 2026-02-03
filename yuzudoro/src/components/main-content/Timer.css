@@ -1,4 +1,4 @@
-.timer-container {
+.timer-container, .timer-container-dark {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,13 +15,28 @@
 	background-color: #F7F7F7; */
 
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  background-color: rgb(247, 247, 247);
+
+  /* Light mode */
+  background-color: rgb(247, 247, 247); 
+
+  /* transition: background-color 0.3s; */
+}
+.timer-container-dark {
+  background-color: rgb(55, 55, 55);
 }
 
-.timer {
+.timer, .timer-dark {
   font-size: 100px;
   font-family: Arial;
+
+  /* Light mode */
   color: rgb(41, 41, 41);
+
+  /* transition: color 0.3s; */
+}
+.timer-dark {
+  /* Dark mode */
+  color: rgb(219, 181, 121);
 }
 
 .control-container {
@@ -33,7 +48,7 @@
   margin-top: 30px;
 }
 
-.timer-button {
+.timer-button, .timer-button-dark {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,20 +58,34 @@
 
   padding: 10px;
 
+  /* Light mode */
   background-color: rgb(55, 55, 55);
 
   cursor: pointer;
-  transition: translate 0.15s, box-shadow 0.15s;
+  transition: translate 0.3s, box-shadow 0.3s;
   box-shadow: 3px 3px 0px rgba(1, 1, 1, 0.2);
+
+  /* transition: background-color 0.3s; */
+}
+.timer-button-dark {
+  /* Dark mode */
+  background-color: rgb(219, 181, 121)
 }
 .timer-button:active {
   translate: 1px 1px;
   box-shadow: 2px 2px 0px rgba(1, 1, 1, 0.2);
 }
-.timer-button-img {
+.timer-button-img, .timer-button-img-dark {
   height: 40px;
   width: 40px;
+  /* Light mode */
   filter: brightness(0) saturate(100%) invert(86%) sepia(88%) saturate(424%) hue-rotate(311deg) brightness(89%) contrast(92%);
+
+  /* transition: filter 0.3s; */
+}
+.timer-button-img-dark {
+  /* Dark mode */
+  filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(102%) contrast(87%);
 }
 
 .timer-button-sub {
@@ -68,16 +97,24 @@
   background-color: rgba(55, 55, 55, 0);
 
   cursor: pointer;
-  transition: opacity 0.15s;
+  /* transition: opacity 0.3s; */
 }
 .timer-button-sub:hover {
   opacity: 0.7;
 }
-.timer-button-sub-img {
+.timer-button-sub-img, .timer-button-sub-img-dark {
   height: 20px;
   width: 20px;
+  /* Light mode */
   filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(102%) contrast(87%);
+
+  /* transition: filter 0.3s; */
 }
+.timer-button-sub-img-dark {
+  /* Dark mode */
+  filter: brightness(0) saturate(100%) invert(93%) sepia(12%) saturate(2078%) hue-rotate(323deg) brightness(92%) contrast(85%);
+}
+
 
 .break-image {
   height: 150px;
@@ -85,120 +122,18 @@
   margin-bottom: 30px;
   opacity: 1;
 }
-
-.task-selector-container {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 300px;
-  padding: 5px 10px;
-  margin-top: 30px;
-
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-
-  border-radius: 6px;
-
-  background-color: rgba(247, 247, 247);
-  /* backdrop-filter: blur(5px); */
-
-  cursor: pointer;
-  transition: background-color 0.15s;
-}
-.task-selector-container:hover .task-selector-dropdown {
-  background-color: rgb(231, 231, 231);
-  /* visibility: visible; */
-  opacity: 1;
-  pointer-events: all;
-}
-
-.task-selector-text-container {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 5px;
-}
-
-.task-selector-img {
-  height: 30x;
-  width: 30px;
-  filter: brightness(0) saturate(100%) invert(17%) sepia(6%) saturate(0%) hue-rotate(199deg) brightness(102%) contrast(87%);
-  cursor: pointer;
-
-  transition: opacity 0.15s;
-  opacity: 1;
-}
-.task-selector-img:hover {
-  opacity: 0.7;
-}
-
-.task-selector-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: rgba(0, 0, 0, 0);
-
-  margin: 0px;
-  padding: 0px;
-  margin-left: 20px;
-
-  border: none;
-
-  transition: opacity 0.15s;
-  opacity: 1;
-}
-.task-selector-button:hover {
-  opacity: 0.7;
-}
-
-.task-selector-dropdown {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-
-  position: absolute;
-  z-index: 20;
-
-  left: 0px;
-  right: 0px;
-  top: 40.5px;
-  /* padding: 12px 12px; */
-
-  max-height: 250px;
-
-  overflow-x: hidden;
-  overflow-y: scroll;
-
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.3);
-
-  border-radius: 6px;
-  
+.break-image-focus {
   opacity: 0;
-  transition: opacity 0.15s;
-  pointer-events: none;
-  /* visibility: hidden; */
 }
 
-.task-option {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+.state-text, .state-text-dark {
+  margin-bottom: 20px;
+  /* Light mode */
+  color: rgb(55, 55, 55);
 
-  width: 300px;
-  padding: 5px 10px;
-
-  background-color: rgb(247, 247, 247);
-  /* backdrop-filter: blur(5px); */
-
-
-  cursor: pointer;
-  transition: background-color 0.15s;
+  /* transition: color 0.3s; */
 }
-.task-option:hover {
-  background-color: rgb(231, 231, 231);
+.state-text-dark {
+  /* Dark mode */
+  color: rgb(219, 181, 121);
 }
