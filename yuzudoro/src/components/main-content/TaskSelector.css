@@ -1,5 +1,14 @@
+.task-selector {
+  position: relative;
+}
+.task-selector-dark p {
+  /* Dark mode */
+  color: rgb(219, 181, 121);
+}
+
 .task-selector-container, .task-selector-container-dark {
   position: relative;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -9,7 +18,7 @@
   padding: 5px 10px;
   margin-top: 30px;
 
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0), 0px 0px 10px rgba(0, 0, 0, 0.3);
 
   border-radius: 6px;
 
@@ -18,19 +27,20 @@
 
   cursor: pointer;
   /* transition: background-color 0.15s, color 0.15s; */
+  transition: box-shadow 0.15s;
 }
 .task-selector-container-dark {
   /* Dark mode */
   background-color: rgba(55, 55, 55);
 }
 
-.task-selector-container-dark p {
-  /* Dark mode */
-  color: rgb(219, 181, 121);
+
+
+.task-selector-container:hover, .task-selector-container-dark:hover {
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.2), 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
-.task-selector-container:hover .task-selector-dropdown, .task-selector-container-dark:hover .task-selector-dropdown-dark {
-  opacity: 1;
-  pointer-events: all;
+.task-selector-container:active, .task-selector-container-dark:active {
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.3), 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
 .task-selector-text-container {
@@ -79,6 +89,16 @@
 .task-selector-button:hover {
   opacity: 0.7;
 }
+.task-selector-container:hover .task-selector-dropdown, .task-selector-container-dark:hover .task-selector-dropdown-dark {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.create-new-task {
+  position: absolute;
+  right: -40px;
+  top: 35px;
+}
 
 .task-selector-dropdown, .task-selector-dropdown-dark {
   display: flex;
@@ -89,10 +109,10 @@
   position: absolute;
   z-index: 20;
 
-  left: 0px;
-  right: 0px;
-  top: 40.5px;
+  /* left: 0px; */
+  /* right: 0px; */
   /* padding: 12px 12px; */
+  margin-top: 5px;
 
   max-height: 250px;
 
@@ -108,7 +128,7 @@
   
   opacity: 0;
   transition: opacity 0.15s;
-  pointer-events: none;
+  /* pointer-events: none; */
   /* visibility: hidden; */
 
   /* transition: background-color 0.15s; */
@@ -117,23 +137,6 @@
   /* Dark mode */
   background-color: rgb(55, 55, 55);
 }
-
-.task-option {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 300px;
-  padding: 5px 10px;
-
-  /* background-color: rgb(247, 247, 247); */
-  /* backdrop-filter: blur(5px); */
-
-  cursor: pointer;
-  transition: box-shadow 0.15s;
-}
-.task-option:hover {
-  /* background-color: rgb(231, 231, 231); */
-  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.2);
+.task-selector-active {
+  opacity: 1;
 }

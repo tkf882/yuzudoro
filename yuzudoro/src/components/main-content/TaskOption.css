@@ -1,0 +1,24 @@
+/* task-selector-text-container and task-selector-img */
+
+.task-option {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 300px;
+  padding: 5px 10px;
+
+  /* background-color: rgb(247, 247, 247); */
+  /* backdrop-filter: blur(5px); */
+
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+}
+.task-option:hover {
+  /* background-color: rgb(231, 231, 231); */
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.2);
+}
+.task-option:active {
+  box-shadow: inset 0 0 100px 100px rgba(0, 0, 0, 0.3);
+}

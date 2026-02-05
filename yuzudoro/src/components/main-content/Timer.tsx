@@ -22,16 +22,19 @@ export function Timer({darkmode}:timerProps) {
 
   // Minutes: Math.floor(timer/60)
   // Seconds: timer%60
-  const [timer, setTimer] = useState(3); // in seconds
+  const [timer, setTimer] = useState(5); // in seconds
   const [timerStatus, setTimerStatus] = useState(false);
   const [onBreak, setOnBreak] = useState(false);
 
+  // temporary
+  const breakTime:number = 3;
+  const focusTime:number = 5;
+
 
   useEffect(() => {
-    const audio = new Audio(alarm)
-    let timerIntervalId:number = 1;
+    const audio = new Audio(alarm);
 
-    timerIntervalId = setInterval(function() {
+    const timerIntervalId = setInterval(function() {
       console.log('this is running');  
       if (timerStatus) {
         setTimer(timer - 1);
@@ -40,9 +43,9 @@ export function Timer({darkmode}:timerProps) {
           console.log('STOP')
           audio.play();
           if (onBreak) {
-            setTimer(3);
+            setTimer(focusTime);
           } else {
-            setTimer(5);
+            setTimer(breakTime);
           }
           setOnBreak(!onBreak);
           setTimerStatus(!timerStatus);
@@ -55,8 +58,30 @@ export function Timer({darkmode}:timerProps) {
     }
   }, [timer, timerStatus, onBreak])
 
-  function pausePlay() {
+  function handlePausePlay() {
     setTimerStatus(!timerStatus);
+  }
+
+  function handleReset() {
+    if (onBreak) {
+      setTimer(breakTime); // break time
+    } else {
+      setTimer(focusTime); // focus time
+    }
+    setTimerStatus(false);
+  }
+
+  function handleSkip() {
+    if (onBreak) {
+      setTimer(focusTime); // focus time
+    } else {
+      setTimer(breakTime); // break time
+    }
+    
+    setTimerStatus(false);
+    const audio = new Audio(alarm);
+    audio.play();
+    setOnBreak(!onBreak);
   }
 
   const min:number = Math.floor(timer/60);
@@ -75,16 +100,16 @@ export function Timer({darkmode}:timerProps) {
         <h1 className={`timer ${darkmode ? 'timer-dark' : ''}`}>{timeFormat}</h1>
         <div className="control-container">
           <button className="timer-button-sub">
-            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipBackward}/>
+            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipBackward} onClick={handleReset}/>
           </button>
           <button className={`timer-button ${darkmode ? 'timer-button-dark' : ''}`}>
             {timerStatus
-              ? <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={pause} onClick={pausePlay}/> 
-              : <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={play} onClick={pausePlay}/>
+              ? <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={pause} onClick={handlePausePlay}/> 
+              : <img className={`timer-button-img ${darkmode ? 'timer-button-img-dark' : ''}`} src={play} onClick={handlePausePlay}/>
             }
           </button>
           <button className="timer-button-sub">
-            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipForward}/>
+            <img className={`timer-button-sub-img ${darkmode ? 'timer-button-sub-img-dark' : ''}`} src={skipForward} onClick={handleSkip}/>
           </button>
         </div>
       </div>
