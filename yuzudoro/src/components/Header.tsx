@@ -1,4 +1,7 @@
+import { user } from '../data/user';
+
 import './Header.css';
+
 import yuzuIcon from '../assets/yuzu.png';
 import moonIcon from '../assets/moon.svg';
 import sunIcon from '../assets/sun.svg';
@@ -12,6 +15,7 @@ export function Header({darkmode, setDarkmode}:headerProps) {
 
   function toggleDark() {
     setDarkmode(!darkmode);
+    user.toggleDarkmode();
   }
 
   return (

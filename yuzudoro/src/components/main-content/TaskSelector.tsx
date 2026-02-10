@@ -1,31 +1,31 @@
 import { TaskOption } from './TaskOption'
+
 import { user } from '../../data/user';
 import { Task } from '../../data/task';
-import { useState } from 'react';
+import type { modalStatus } from '../../data/modalStatus';
+// import { useState } from 'react';
 
 import plusIcon from '../../assets/plus.svg';
-// import settingsIcon from '../../assets/settings.svg';
 import dropdownIcon from '../../assets/drop-down-arrow.svg';
 
 import './TaskSelector.css';
 
 interface taskSelectorProps {
   darkmode: boolean;
-  setModal: (value: string) => void;
+  setModalStatus: (value: modalStatus) => void;
+  dropdownStatus: boolean;
+  setDropdownStatus: (value: boolean) => void;
 }
 
-export function TaskSelector({darkmode, setModal}:taskSelectorProps) {
-  const [dropdownStatus, setDropdownStatus] = useState(false);
-
+export function TaskSelector({darkmode, setModalStatus, dropdownStatus, setDropdownStatus}:taskSelectorProps) {
   function handleDropdownToggle() {
     setDropdownStatus(!dropdownStatus);
   }
 
   function handleCreateTask() {
-    setModal('newtask');
+    setModalStatus({type: 1, info: ''});
   }
 
-  // CHECK TO MAKE SURE USER CURRENT CLASS EXISTS 
   const current:(Task | null) = user.getTask(user.currentTask);
 
   return (
@@ -37,7 +37,7 @@ export function TaskSelector({darkmode, setModal}:taskSelectorProps) {
 
       <div className={`task-selector-container ${darkmode && 'task-selector-container-dark'}`} onClick={handleDropdownToggle}>
         <div className="task-selector-text-container">
-          {current ? current['title'] : '--'}
+          <p>{current ? current['title'] : '--'}</p>
         </div>
         
         <button className="task-selector-button">
@@ -51,24 +51,15 @@ export function TaskSelector({darkmode, setModal}:taskSelectorProps) {
         {
           user.tasks.map((task) => {
             return (
-              <TaskOption key={task.tid} darkmode={darkmode} setModal={setModal} setDropdownStatus={setDropdownStatus} task={task}/>
+              <TaskOption
+                key={task.tid}
+                darkmode={darkmode}
+                setModalStatus={setModalStatus}
+                taskOptionTask={task}
+              />
             );
           })
         }
-
-        {/* <div className="task-option">
-          <div className="task-selector-text-container">
-            <p>Studying</p>
-          </div>
-          <img className={`task-selector-img ${darkmode && 'task-selector-img-dark'}`} src={settingsIcon}/>
-        </div>
-
-        <div className="task-option">
-          <div className="task-selector-text-container">
-            <p>not studying</p>
-          </div>
-          <img className={`task-selector-img ${darkmode && 'task-selector-img-dark'}`} src={settingsIcon}/>
-        </div> */}
 
       </div>
     </div>
