@@ -41,15 +41,12 @@ function App() {
     console.log('reset from resetTimer');
   }
 
-  
-  // console.log(user);
-  // console.log(user.tasks);
-  console.log('current ' + user.currentTask);
+  console.log(user);
 
-  // useEffect(() => {
-  //   console.log("refresh based on user")
-  //   console.log(user.currentTask);
-  // }, [user])
+  // user.updateSession(3600*1000);
+
+  // console.log(user.tasks);
+  // console.log('current ' + user.currentTask);
 
   return (
     <>

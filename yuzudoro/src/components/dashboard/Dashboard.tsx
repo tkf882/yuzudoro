@@ -1,9 +1,56 @@
+import { TaskStat } from './TaskStat';
+import { Bar } from './Bar';
+import { user } from '../../data/user';
+import { Session } from '../../data/session';
+import dayjs from 'dayjs';
+
 import './Dashboard.css'
 
+
+// interface dashboardProps {
+//   darkmode: boolean;
+//   setDarkmode: (value: boolean) => void;
+// }
 export function Dashboard() {
+  const today = dayjs();
+  const timeHour = Number(today.format('H')); // 0-23
+  let message:string = '';
+  if (timeHour < 10) {
+    message = 'Good morning!';
+  } else if (10 <= timeHour && timeHour < 14) {
+    message = 'Good day!';
+  } else if (14 <= timeHour && timeHour < 17) {
+    message = 'Good afternoon!';
+  } else if (17 <= timeHour && timeHour < 23) {
+    message = 'Good evening!';
+  }
+
+  const sessionArray = [];
+  let j:number = 0;
+  const sessionLength:number = user.sessions.length;
+  for (let i = 0; i < 15; i++) {
+    const today = (dayjs().subtract(i, 'days')).format('DD/MM/YYYY');
+    if (j < sessionLength) {
+      if (user.sessions[j].date === today) {
+        sessionArray.push(user.sessions[j]);
+        j++;
+        continue;
+      }
+    }
+    sessionArray.push(new Session({
+      sid: `emptySession-${i}`,
+      uid: user.uid,
+      sessionTasks: [],
+      date: today
+    }))
+  }
+
+  console.log(sessionArray);
+
+
   return(
     <div className="dashboard">
-      <h1>Good morning!</h1>
+      <h1>{message}</h1>
       
       <div className="dashboard-grid">
         
@@ -14,45 +61,16 @@ export function Dashboard() {
 
               <h1>Session stats:</h1>
 
-              <div className="task-stat-container">
-                <div className="task-name-container">
-                  <h2>task1</h2>
-                </div>
-                <div className="stat-hour-container">
-                  <p>24h (Past two weeks)</p>
-                  <p>136h (Total)</p>
-                </div>
-              </div>
-              
-              <div className="task-stat-container">
-                <div className="task-name-container">
-                  <h2>Studyingaaaaaaaaaaaaaaa</h2>
-                </div>
-                <div className="stat-hour-container">
-                  <p>24h (Past two weeks)</p>
-                  <p>136h (Total)</p>
-                </div>
-              </div>
-
-              <div className="task-stat-container">
-                <div className="task-name-container">
-                  <h2>working on this website</h2>
-                </div>
-                <div className="stat-hour-container">
-                  <p>24h (Past two weeks)</p>
-                  <p>136h (Total)</p>
-                </div>
-              </div>
-
-              <div className="task-stat-container">
-                <div className="task-name-container">
-                  <h2>A very long but well formatted task</h2>
-                </div>
-                <div className="stat-hour-container">
-                  <p>24h (Past two weeks)</p>
-                  <p>136h (Total)</p>
-                </div>
-              </div>
+              {
+                user.tasks.map((task) => {
+                  return (
+                    <TaskStat
+                      key={task.tid}
+                      task={task}
+                    />
+                  );
+                })
+              }
 
             </div>
 
@@ -64,9 +82,6 @@ export function Dashboard() {
               </div>
             </div>
 
-
-
-
           </div>
 
         </div>
@@ -76,33 +91,26 @@ export function Dashboard() {
             <div className="stats-chart-container">
               <div className="stats-chart-date">
                 <p>Today</p>
-                <p>Jan 21</p>
-                <p>Jan 14</p>
+                <p>{today.subtract(7, 'days').format('MMM D')}</p>
+                <p>{today.subtract(14, 'days').format('MMM D')}</p>
               </div>
 
               <div className="bar-chart">
+
+
+                {
+                  sessionArray.map((session) => {
+                    return < Bar key={session.sid} session={session} />
+                  })
+                }
+
+
+                {/* {
+                  user.sessions.map((session) => {
+                    return < Bar key={session.sid} session={session} />
+                  })
+                } */}
       
-                {/* <div className="bar">
-                  <div className="filled" style={{flex: '10'}}>
-                    <div className="bar-stack-left" style="flex: 5; background-color: lightgreen;">
-                      <div className="bar-stack-tooltip">Task 3 (5h)</div>
-                    </div>
-                    <div className="bar-stack" style="flex: 3; background-color: lightblue;">
-                      <div className="bar-stack-tooltip">Task 1 (3h)</div>
-                    </div>
-                    <div className="bar-stack-right" style="flex: 2; background-color: lightcoral;">
-                      <div className="bar-stack-tooltip">Task 2 (2h)</div>
-                    </div>
-                  </div>
-                  <div className="bar-stack" style="flex: 14; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
-                </div> */}
-
-                {/* <div className="bar">
-                  <div className="filled" style={{flex: '0'}}>
-                  </div>
-                  <div className="bar-stack" style="flex: 24; pointer-events: none; background-color: rgba(0, 0, 0, 0)"></div>
-                </div> */}
-
               </div>
             </div>
           </div>

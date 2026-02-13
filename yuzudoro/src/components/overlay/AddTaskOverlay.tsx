@@ -52,8 +52,6 @@ export function AddTaskOverlay({modalStatus, setModalStatus}:AddTaskOverlayProps
         setErrorMessage('');
       }
     }
-
-    
   }
 
   function handleModalToggle() {

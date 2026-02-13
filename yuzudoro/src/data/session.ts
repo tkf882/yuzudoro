@@ -1,22 +1,24 @@
+import type { sessionTask } from './sessionTask';
+
+// Session: Holds collection of tasks focused on a particular day
+// The user has a list of sessions
 export class Session {
-  id: string;
+  sid: string;
   uid: string;
-  tid: string;
-  duration: number;
-  date: string;
+  sessionTasks: sessionTask[]
+  date: string; // DD/MM/YYY format.
 
   constructor(details: {
-    id: string;
+    sid: string;
     uid: string;
-    tid: string;
-    duration: number;
+    sessionTasks: sessionTask[]
     date: string;
-  }
-  ) {
-    this.id = details.id;
+  }) {
+    this.sid = details.sid;
     this.uid = details.uid;
-    this.tid = details.tid;
-    this.duration = details.duration;
+    this.sessionTasks = details.sessionTasks;
     this.date = details.date;
   }
+
+  
 }
