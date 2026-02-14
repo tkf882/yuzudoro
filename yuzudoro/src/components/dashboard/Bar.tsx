@@ -44,8 +44,9 @@ import './Bar.css'
 
 interface barProps {
   session: Session;
+  max: number;
 }
-export function Bar({session}:barProps) {
+export function Bar({session, max}:barProps) {
   // Each bar gets a session
   // Each task's flex property is equal to task.totalTime (in hours)
   
@@ -55,11 +56,15 @@ export function Bar({session}:barProps) {
   // console.log(session);
   
   const sessionTaskArrLength:number = session.sessionTasks.length;
-  let filledDivLength:number = 0;
-  session.sessionTasks.forEach((sessionTask) => {
-    filledDivLength += sessionTask.duration;
-  });
-  const emptyDivLength:number = 24 - filledDivLength;
+  // let filledDivLength:number = 0;
+  // session.sessionTasks.forEach((sessionTask) => {
+  //   filledDivLength += sessionTask.duration;
+  // });
+  const hours = Number((session.totalDuration/ 3600).toFixed(1));
+  const filledDivLength:number = hours;
+  // console.log(`filled: ${filledDivLength}`);
+  const emptyDivLength:number = (12 < max ? 24 : 12) - filledDivLength; // if maximum larger than 12h, use 24h. Otherwise 12h maximum.
+  // console.log(`empty: ${emptyDivLength}`);
   
 
   return(
@@ -68,12 +73,13 @@ export function Bar({session}:barProps) {
 
         {
           session.sessionTasks.map((task, index) => {
+            const taskHours = Number((task.duration / 3600).toFixed(1));
             return (
               <div 
                 key={task.tid}
                 className={`bar-stack ${index === 0 && 'bar-stack-left'} ${index === sessionTaskArrLength - 1 && 'bar-stack-right'}`}
-                style={{flex: `${task.duration}`, backgroundColor: `${task.barColor}`}}>
-                <div className="bar-stack-tooltip">{`${task.title}`} ({`${task.duration}`}h)</div>
+                style={{flex: `${taskHours}`, backgroundColor: `${task.barColor}`}}>
+                <div className="bar-stack-tooltip">{`${task.title}`} ({`${taskHours}`}h)</div>
               </div>
             )
           })

@@ -25,9 +25,10 @@ interface timerProps {
   onBreak: boolean;
   setOnBreak: (value: boolean) => void;
   onBreakRef: React.RefObject<boolean>
+  lastPauseTimeRef: React.RefObject<number>
 }
 
-export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTimeElapsed, onBreak, setOnBreak, onBreakRef}:timerProps) {
+export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTimeElapsed, onBreak, setOnBreak, onBreakRef, lastPauseTimeRef}:timerProps) {
   // 5:00 = 300
   // 10:00 = 600
   // 25:00 = 1500
@@ -36,16 +37,41 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
   
   // state variables moved to app.tsx
   const startTimeRef = useRef(0);
+  
   const intervalIdRef= useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   function reset() {
+    if (timeElapsed === 0 && !isCounting) {
+      console.log('dont do anything');
+      return;
+    }
+    if (isCounting) { // update session already handled if it was paused (!isCounting)
+      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      user.updateSession(Date.now() - lastPauseTimeRef.current);
+    }
+
+
     setIsCounting(false);
     setTimeElapsed(0);
     // console.log('reset');
   }
 
   function playback() {
+    // const millisecondElapsed = Math.floor(((Date.now() - startTimeRef.current))/1000)*1000; // avoid time errors by rounding down
+    // user.updateSession(millisecondElapsed);
+
+    if (isCounting) {
+      // pausing timer
+      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      user.updateSession(Date.now() - lastPauseTimeRef.current);
+      // user.updateSession((Date.now() - lastPauseTimeRef.current) * 60); // for testing purposes, when pausing lets 1min = 1h
+    } else {
+      lastPauseTimeRef.current = Date.now();
+    }
+
     startTimeRef.current = Date.now() - timeElapsed;
+
+    
     setIsCounting(!isCounting);
   }
 
@@ -55,6 +81,15 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
 
     onBreakRef.current = !onBreakRef.current;
     setOnBreak(onBreakRef.current);
+
+    if (timeElapsed === 0 && !isCounting) {
+      console.log('dont do anything');
+      return;
+    }
+    if (isCounting) { // update session already handled if it was paused (!isCounting)
+      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      user.updateSession(Date.now() - lastPauseTimeRef.current);
+    }
 
     setIsCounting(false);
     setTimeElapsed(0);
@@ -71,7 +106,6 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
         // console.log('here')
         const millisecondElapsed = Math.floor(((Date.now() - startTimeRef.current))/1000)*1000; // avoid time errors by rounding down
         const secondsElapsed:number = millisecondElapsed/1000; // no need to round.
-        console.log(`onBreak is ${onBreakRef.current}`)
         if (secondsElapsed >= currentTaskWorkDuration && !onBreakRef.current) {
           // work duration up, switch to break
           setOnBreak(true);

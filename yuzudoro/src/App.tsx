@@ -27,16 +27,36 @@ function App() {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [onBreak, setOnBreak] = useState(false);  // also required for the page to update.
   const onBreakRef = useRef(false); // required to be a ref since the setInterval function uses the value of the state variable at the time of declaration, doesn't update it.
+  const lastPauseTimeRef = useRef(0);
 
   const [modalStatus, setModalStatus] = useState({type: 0, info: ''})
   const [dropdownStatus, setDropdownStatus] = useState(false);
 
   function resetTimer() {
     // Used when switching tasks and editing the currently active task
-    setIsCounting(false);
-    setOnBreak(false);
-    onBreakRef.current = false;
-    setTimeElapsed(0);
+    if (timeElapsed === 0 && !isCounting) {
+      console.log('Not started');
+      setIsCounting(false);
+      setOnBreak(false);
+      onBreakRef.current = false;
+      // user.updateSession(timeElapsed);
+      setTimeElapsed(0);
+    } else {
+      if (isCounting) { // update session already handled if it was paused (!isCounting)
+        console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+        user.updateSession(Date.now() - lastPauseTimeRef.current);
+      }
+      setIsCounting(false);
+      setOnBreak(false);
+      onBreakRef.current = false;
+      setTimeElapsed(0);
+    }
+
+    // setIsCounting(false);
+    // setOnBreak(false);
+    // onBreakRef.current = false;
+    // // user.updateSession(timeElapsed);
+    // setTimeElapsed(0);
 
     console.log('reset from resetTimer');
   }
@@ -108,6 +128,7 @@ function App() {
               onBreak={onBreak}
               setOnBreak={setOnBreak}
               onBreakRef={onBreakRef}
+              lastPauseTimeRef={lastPauseTimeRef}
             />
 
             <TaskSelector

@@ -155,44 +155,36 @@ export class User {
         sid: string;
         uid: string;
         sessionTasks: sessionTask[]
-        duration: number;
         date: string;
+        totalDuration: number;
       }) => {
         // console.log(task);
         this.sessions.push(new Session({
           sid: session.sid,
           uid: session.uid,
           sessionTasks: session.sessionTasks,
-          date: session.date
+          date: session.date,
+          totalDuration: session.totalDuration
         }))
       })
     } else {
-      // Create defaults 
-      // for (let i = 0; i < 15; i++) {
-      //   this.sessions.push(new Session({
-      //     sid: uuidv4(),
-      //     uid: this.uid,
-      //     sessions: [],
-      //     date: (dayjs().subtract(i, 'days')).format('DD/MM/YYYY')
-      //   }))
-      // }
-
       this.sessions.push( new Session({
         sid: uuidv4(),
         uid: this.uid,
         sessionTasks: [{
           tid: this.tasks[0].tid,
           title: this.tasks[0].title,
-          duration: 5.5,
+          duration: 5.5*3600,
           barColor: this.tasks[0].barColor,
         }, {
           tid: this.tasks[1].tid,
           title: this.tasks[1].title,
-          duration: 3,
+          duration: 3*3600,
           barColor: this.tasks[1].barColor,
         },
         ],
-        date: (dayjs().subtract(0, 'days')).format('DD/MM/YYYY')
+        date: (dayjs().subtract(0, 'days')).format('DD/MM/YYYY'),
+        totalDuration: 8.5*3600
       }));
       this.sessions.push( new Session({
         sid: uuidv4(),
@@ -200,16 +192,17 @@ export class User {
         sessionTasks: [{
           tid: this.tasks[0].tid,
           title: this.tasks[0].title,
-          duration: 5.5,
+          duration: 6*3600,
           barColor: this.tasks[0].barColor,
         }, {
           tid: this.tasks[2].tid,
           title: this.tasks[2].title,
-          duration: 16,
+          duration: 5*3600,
           barColor: this.tasks[2].barColor,
         },
         ],
-        date: (dayjs().subtract(1, 'days')).format('DD/MM/YYYY')
+        date: (dayjs().subtract(1, 'days')).format('DD/MM/YYYY'),
+        totalDuration: 11*3600
       }));
       this.sessions.push( new Session({
         sid: uuidv4(),
@@ -217,10 +210,11 @@ export class User {
         sessionTasks: [{
           tid: this.tasks[1].tid,
           title: this.tasks[1].title,
-          duration: 3,
+          duration: 3*3600,
           barColor: this.tasks[1].barColor,
         }],
-        date: (dayjs().subtract(2, 'days')).format('DD/MM/YYYY')
+        date: (dayjs().subtract(2, 'days')).format('DD/MM/YYYY'),
+        totalDuration: 3*3600
       }));
       this.sessions.push( new Session({
         sid: uuidv4(),
@@ -228,10 +222,11 @@ export class User {
         sessionTasks: [{
           tid: this.tasks[1].tid,
           title: this.tasks[1].title,
-          duration: 3,
+          duration: 3*3600,
           barColor: this.tasks[1].barColor,
         }],
-        date: (dayjs().subtract(5, 'days')).format('DD/MM/YYYY')
+        date: (dayjs().subtract(5, 'days')).format('DD/MM/YYYY'),
+        totalDuration: 3*3600
       }));
 
     }
@@ -308,8 +303,10 @@ export class User {
     // timer pause/skip/reset, timer switch (user.setCurrent), timer switches between break/focus
     // i.e., whenever setTimeElapsed(0)
 
-    // Convert from ms to H (rounded down)
-    const hours:number = Number(Math.round((newSessionTaskDuration/1000)/3600).toFixed(2));
+    // Convert from ms to sec (rounded down)
+    // const hours:number = Number(Math.round((newSessionTaskDuration/1000)/3600).toFixed(2));
+    const sec:number = Number(Math.round(newSessionTaskDuration/1000).toFixed(2));
+    console.log(`updated to : ${sec} sec`);
     const currentTask:(Task | null) = this.getTask(this.currentTask);
     const today:string = dayjs().format('DD/MM/YYYY');
 
@@ -323,10 +320,10 @@ export class User {
     if (this.sessions.length > 0) {
       if (this.sessions[0].date === today) {
         // Session exists, check to see if sessionTask exists for currentTask
-        (currentTask as Task).totalTime += hours;
+        (currentTask as Task).totalTime += sec;
         
         // Loop through this.sessions[0].sessionTasks
-          // If a sessionTask's tid === currentTask, then increase its duration and the task's totalTime by hours
+          // If a sessionTask's tid === currentTask, then increase its duration and the task's totalTime by sec
           // save to storage
           // return
 
@@ -334,8 +331,9 @@ export class User {
           const st = this.sessions[0].sessionTasks[i];
           if (st.tid === currentTask['tid']) {
             console.log('Session exists, sessionTask exists')
-            st.duration += hours;
-            // (currentTask as Task).totalTime += hours;
+            st.duration += sec;
+            this.sessions[0].totalDuration += sec;
+            // (currentTask as Task).totalTime += sec;
             this.saveToStorage();
             return;
           }
@@ -344,8 +342,8 @@ export class User {
         // this.sessions[0].sessionTasks.forEach((st) => {
         //   if (st.tid === currentTask['tid']) {
         //     console.log('Session exists, sessionTask exists')
-        //     st.duration += hours;
-        //     // (currentTask as Task).totalTime += hours;
+        //     st.duration += sec;
+        //     // (currentTask as Task).totalTime += sec;
         //     this.saveToStorage();
         //     return;
         //   }
@@ -354,14 +352,14 @@ export class User {
         console.log('Session exists, sessionTask not found')
 
         // sessionTask was not found, create new one with tid===currentTask
-        // Use hours for its duration and increase current task's totalTime by hours
+        // Use sec for its duration and increase current task's totalTime by sec
         // save to storage
         // return
-
+        this.sessions[0].totalDuration += sec;
         this.sessions[0].sessionTasks.push({
           tid: currentTask['tid'],
           title: currentTask['title'],
-          duration: hours,
+          duration: sec,
           barColor: currentTask['barColor']
         })
 
@@ -372,19 +370,20 @@ export class User {
     console.log('Session dont, sessionTask dont exist')
     // Session doesn't exist
     // Create new session with a sessionTask matching currentTask
-      // Use hours for its duration and increase current task's totalTime by hours
+      // Use sec for its duration and increase current task's totalTime by sec
     // prepend session to this.sessions 
     // save to storage
     this.sessions.unshift(new Session({
       sid: uuidv4(),
       uid: this.uid,
       sessionTasks: [{
-        tid: this.tasks[0].tid,
-        title: this.tasks[0].title,
-        duration: 5.5,
-        barColor: this.tasks[0].barColor,
+        tid: currentTask['tid'],
+        title: currentTask['title'],
+        duration: sec,
+        barColor: currentTask['barColor'],
       }],
-      date: dayjs().format('DD/MM/YYYY')
+      date: dayjs().format('DD/MM/YYYY'),
+      totalDuration: sec
     }));
 
     this.saveToStorage();
