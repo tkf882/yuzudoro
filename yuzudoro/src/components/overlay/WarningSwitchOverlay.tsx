@@ -11,12 +11,12 @@ interface WarningSwitchOverlayProps {
 }
 export function WarningSwitchOverlay({modalStatus, setModalStatus, setDropdownStatus, resetTimer}:WarningSwitchOverlayProps) {
   function handleConfirm() {
+    resetTimer();
     user.setCurrent(modalStatus.info);
+    // resetTimer();
 
     setModalStatus({type: 0, info: ''});
     setDropdownStatus(false);
-
-    resetTimer();
   }
   function handleModalToggle() {
     setModalStatus({type: 0, info: ''});

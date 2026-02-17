@@ -6,6 +6,7 @@ export class Task {
   breakDuration: number;
   totalTime: number;
   barColor: string;
+  canBeModified: boolean;
 
   constructor(details: {
     tid: string;
@@ -15,6 +16,7 @@ export class Task {
     breakDuration: number;
     totalTime: number;
     barColor: string;
+    canBeModified: boolean;
   }
   ) {
     this.tid = details.tid;
@@ -24,6 +26,7 @@ export class Task {
     this.breakDuration = details.breakDuration;
     this.totalTime = details.totalTime;
     this.barColor = details.barColor;
+    this.canBeModified = details.canBeModified;
   }
 
   setTitle(newTitle:string) {

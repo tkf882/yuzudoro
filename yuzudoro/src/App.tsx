@@ -35,15 +35,13 @@ function App() {
   function resetTimer() {
     // Used when switching tasks and editing the currently active task
     if (timeElapsed === 0 && !isCounting) {
-      console.log('Not started');
       setIsCounting(false);
       setOnBreak(false);
       onBreakRef.current = false;
-      // user.updateSession(timeElapsed);
       setTimeElapsed(0);
     } else {
       if (isCounting) { // update session already handled if it was paused (!isCounting)
-        console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+        // console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
         user.updateSession(Date.now() - lastPauseTimeRef.current);
       }
       setIsCounting(false);
@@ -51,22 +49,11 @@ function App() {
       onBreakRef.current = false;
       setTimeElapsed(0);
     }
-
-    // setIsCounting(false);
-    // setOnBreak(false);
-    // onBreakRef.current = false;
-    // // user.updateSession(timeElapsed);
-    // setTimeElapsed(0);
-
-    console.log('reset from resetTimer');
+    // console.log('reset from resetTimer');
   }
 
-  console.log(user);
-
-  // user.updateSession(3600*1000);
-
-  // console.log(user.tasks);
-  // console.log('current ' + user.currentTask);
+  // console.log(user);
+  // console.log(user.getTask(user.currentTask))
 
   return (
     <>

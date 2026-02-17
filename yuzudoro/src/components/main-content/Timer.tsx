@@ -11,11 +11,6 @@ import play from '../../assets/player-play.svg';
 import pause from '../../assets/player-pause.svg';
 import alarm from '../../assets/alarm.wav';
 
-// interface taskFormat {
-//   workDuration: number,
-//   breakDuration: number,
-// }
-
 interface timerProps {
   darkmode: boolean;
   isCounting: boolean;
@@ -42,14 +37,13 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
 
   function reset() {
     if (timeElapsed === 0 && !isCounting) {
-      console.log('dont do anything');
+      // console.log('dont do anything');
       return;
     }
     if (isCounting) { // update session already handled if it was paused (!isCounting)
-      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      // console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
       user.updateSession(Date.now() - lastPauseTimeRef.current);
     }
-
 
     setIsCounting(false);
     setTimeElapsed(0);
@@ -57,12 +51,9 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
   }
 
   function playback() {
-    // const millisecondElapsed = Math.floor(((Date.now() - startTimeRef.current))/1000)*1000; // avoid time errors by rounding down
-    // user.updateSession(millisecondElapsed);
-
     if (isCounting) {
       // pausing timer
-      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      // console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
       user.updateSession(Date.now() - lastPauseTimeRef.current);
       // user.updateSession((Date.now() - lastPauseTimeRef.current) * 60); // for testing purposes, when pausing lets 1min = 1h
     } else {
@@ -83,11 +74,11 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
     setOnBreak(onBreakRef.current);
 
     if (timeElapsed === 0 && !isCounting) {
-      console.log('dont do anything');
+      // console.log('dont do anything');
       return;
     }
     if (isCounting) { // update session already handled if it was paused (!isCounting)
-      console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
+      // console.log(`time since last pause: ${Date.now() - lastPauseTimeRef.current}`);
       user.updateSession(Date.now() - lastPauseTimeRef.current);
     }
 
@@ -96,7 +87,7 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
   }
 
   useEffect(() => {
-    console.log('USE EFFECT ACTIVATED')
+    // console.log('USE EFFECT ACTIVATED')
     const audio = new Audio(alarm);
     const currentTask:(Task | null) = user.getTask(user.currentTask);
     const currentTaskWorkDuration = currentTask ? currentTask['workDuration'] : 0;
@@ -121,22 +112,20 @@ export function Timer({darkmode, isCounting, setIsCounting, timeElapsed, setTime
         } else {
           setTimeElapsed(millisecondElapsed); 
           // console.log(millisecondElapsed);
-          console.log(secondsElapsed);
+          // console.log(secondsElapsed);
         }
 
 
       }, 1000)
     }
     return () => {
-      console.log('Interval was cleared');
+      // console.log('Interval was cleared');
       clearInterval(intervalIdRef.current);
     }
-  }, [isCounting]) // 
+  }, [isCounting]) // is necessary. Using a state setter inside a useEffect, but it only changes on user input so shouldn't rerender excessively. 
 
 
   function formatTime() {
-    // const min:number = Math.floor(timeElapsed/60);
-    // const sec:number = timeElapsed%60;
     const currentTask:(Task | null) = user.getTask(user.currentTask);
     const currentTaskWorkDuration = currentTask ? currentTask['workDuration'] : 0;
     const currentTaskBreakDuration = currentTask ? currentTask['breakDuration'] : 0;

@@ -15,7 +15,7 @@ function uuidv4(): string {
 }
 
 export class User {
-  #localStorageKey: string; // localuser
+  #localStorageKey: string; // yuzudoro-localuser
   #tasksLocalStorageKey: string;
   #sessionLocalStorageKey: string;
 
@@ -76,6 +76,7 @@ export class User {
         breakDuration: number;
         totalTime: number;
         barColor: string;
+        canBeModified: boolean;
       }) => {
         // console.log(task);
         this.tasks.push(new Task({
@@ -85,30 +86,31 @@ export class User {
           workDuration: task.workDuration,
           breakDuration: task.breakDuration,
           totalTime: task.totalTime,
-          barColor: task.barColor
+          barColor: task.barColor,
+          canBeModified: task.canBeModified
         }))
       })
     } else {
       // Create defaults.
       this.tasks = [
-        new Task({
-          tid: uuidv4(),
-          uid: this.uid,
-          title: 'Test 5/3 sec',
-          workDuration: 5,
-          breakDuration: 3,
-          totalTime: 0,
-          barColor: this.taskColors[0 % this.taskColors.length]
-        }),
-        new Task({
-          tid: uuidv4(),
-          uid: this.uid,
-          title: 'Test 10/5 sec',
-          workDuration: 10,
-          breakDuration: 5,
-          totalTime: 0,
-          barColor: this.taskColors[1 % this.taskColors.length]
-        }),
+        // new Task({
+        //   tid: uuidv4(),
+        //   uid: this.uid,
+        //   title: 'Test 5/3 sec',
+        //   workDuration: 5,
+        //   breakDuration: 3,
+        //   totalTime: 0,
+        //   barColor: this.taskColors[0 % this.taskColors.length]
+        // }),
+        // new Task({
+        //   tid: uuidv4(),
+        //   uid: this.uid,
+        //   title: 'Test 10/5 sec',
+        //   workDuration: 10,
+        //   breakDuration: 5,
+        //   totalTime: 0,
+        //   barColor: this.taskColors[1 % this.taskColors.length]
+        // }),
         new Task({
           tid: uuidv4(),
           uid: this.uid,
@@ -116,7 +118,8 @@ export class User {
           workDuration: 1500,
           breakDuration: 300,
           totalTime: 0,
-          barColor: this.taskColors[2 % this.taskColors.length]
+          barColor: this.taskColors[0 % this.taskColors.length],
+          canBeModified: false
         }),
         new Task({
           tid: uuidv4(),
@@ -125,7 +128,8 @@ export class User {
           workDuration: 1800,
           breakDuration: 600,
           totalTime: 0,
-          barColor: this.taskColors[3 % this.taskColors.length]
+          barColor: this.taskColors[1 % this.taskColors.length],
+          canBeModified: false
         }),
         new Task({
           tid: uuidv4(),
@@ -134,7 +138,8 @@ export class User {
           workDuration: 3000,
           breakDuration: 600,
           totalTime: 0,
-          barColor: this.taskColors[4 % this.taskColors.length]
+          barColor: this.taskColors[2 % this.taskColors.length],
+          canBeModified: false
         })
       ];
     }
@@ -147,7 +152,7 @@ export class User {
 
     const sessionInfo = localStorage.getItem(this.#sessionLocalStorageKey);
     this.sessions = [];
-    console.log(sessionInfo);
+    // console.log(sessionInfo);
 
     if (sessionInfo) {
       // Must load them into new Session objects.
@@ -167,7 +172,7 @@ export class User {
           totalDuration: session.totalDuration
         }))
       })
-    } else {
+    } /* else { // defaults for testing
       this.sessions.push( new Session({
         sid: uuidv4(),
         uid: this.uid,
@@ -183,7 +188,7 @@ export class User {
           barColor: this.tasks[1].barColor,
         },
         ],
-        date: (dayjs().subtract(0, 'days')).format('DD/MM/YYYY'),
+        date: (dayjs().subtract(12, 'days')).format('DD/MM/YYYY'),
         totalDuration: 8.5*3600
       }));
       this.sessions.push( new Session({
@@ -201,7 +206,7 @@ export class User {
           barColor: this.tasks[2].barColor,
         },
         ],
-        date: (dayjs().subtract(1, 'days')).format('DD/MM/YYYY'),
+        date: (dayjs().subtract(13, 'days')).format('DD/MM/YYYY'),
         totalDuration: 11*3600
       }));
       this.sessions.push( new Session({
@@ -213,7 +218,7 @@ export class User {
           duration: 3*3600,
           barColor: this.tasks[1].barColor,
         }],
-        date: (dayjs().subtract(2, 'days')).format('DD/MM/YYYY'),
+        date: (dayjs().subtract(14, 'days')).format('DD/MM/YYYY'),
         totalDuration: 3*3600
       }));
       this.sessions.push( new Session({
@@ -225,11 +230,10 @@ export class User {
           duration: 3*3600,
           barColor: this.tasks[1].barColor,
         }],
-        date: (dayjs().subtract(5, 'days')).format('DD/MM/YYYY'),
+        date: (dayjs().subtract(15, 'days')).format('DD/MM/YYYY'),
         totalDuration: 3*3600
       }));
-
-    }
+    } */
 
     // console.log(this.sessions);
 
@@ -260,7 +264,8 @@ export class User {
       workDuration: workDuration,
       breakDuration: breakDuration,
       totalTime: 0,
-      barColor: this.taskColors[(this.tasks.length + 1) % this.taskColors.length]
+      barColor: this.taskColors[(this.tasks.length + 1) % this.taskColors.length],
+      canBeModified: true
     })
     this.tasks.push(newTask);
     this.saveToStorage();
@@ -289,11 +294,15 @@ export class User {
   editTask(tid: string, newTitle: string, workDuration: number, breakDuration: number) {
     const current: (Task | null) = this.getTask(tid);
     if (current) {
-      console.log(current);
       (current as Task).setTitle(newTitle); // avoid [property does not exist on type 'never']. At this point it is NOT null
       (current as Task).setWorkDuration(workDuration);
       (current as Task).setBreakDuration(breakDuration);
     }
+    this.saveToStorage();
+  }
+
+  deleteTask(tid:string) {
+    this.tasks = this.tasks.filter((task) => {return task.tid != tid});
     this.saveToStorage();
   }
 
@@ -306,7 +315,10 @@ export class User {
     // Convert from ms to sec (rounded down)
     // const hours:number = Number(Math.round((newSessionTaskDuration/1000)/3600).toFixed(2));
     const sec:number = Number(Math.round(newSessionTaskDuration/1000).toFixed(2));
-    console.log(`updated to : ${sec} sec`);
+    // const sec:number = Number(Math.round(newSessionTaskDuration/1000).toFixed(2)) * 60; // for testing purposes to speed up time
+
+    // console.log(`updated to : ${sec} sec`);
+
     const currentTask:(Task | null) = this.getTask(this.currentTask);
     const today:string = dayjs().format('DD/MM/YYYY');
 
@@ -330,7 +342,7 @@ export class User {
         for (let i = 0; i < this.sessions[0].sessionTasks.length; i++) {
           const st = this.sessions[0].sessionTasks[i];
           if (st.tid === currentTask['tid']) {
-            console.log('Session exists, sessionTask exists')
+            // console.log('Session exists, sessionTask exists')
             st.duration += sec;
             this.sessions[0].totalDuration += sec;
             // (currentTask as Task).totalTime += sec;
@@ -339,17 +351,7 @@ export class User {
           }
         }
 
-        // this.sessions[0].sessionTasks.forEach((st) => {
-        //   if (st.tid === currentTask['tid']) {
-        //     console.log('Session exists, sessionTask exists')
-        //     st.duration += sec;
-        //     // (currentTask as Task).totalTime += sec;
-        //     this.saveToStorage();
-        //     return;
-        //   }
-        // })
-
-        console.log('Session exists, sessionTask not found')
+        // console.log('Session exists, sessionTask not found')
 
         // sessionTask was not found, create new one with tid===currentTask
         // Use sec for its duration and increase current task's totalTime by sec
@@ -367,7 +369,7 @@ export class User {
         return;
       }
     }
-    console.log('Session dont, sessionTask dont exist')
+    // console.log('Session dont exist, sessionTask dont exist')
     // Session doesn't exist
     // Create new session with a sessionTask matching currentTask
       // Use sec for its duration and increase current task's totalTime by sec
@@ -392,4 +394,4 @@ export class User {
 
 
 // export const tasks = new userInfo('user');
-export const user = new User('localuser');
+export const user = new User('yuzudoro-localuser');

@@ -55,6 +55,12 @@ export function Dashboard() {
 
   // console.log(sessionArray);
 
+  let totalHours:number = 0;
+  user.tasks.forEach((task) => {
+    totalHours += Number((task.totalTime / 3600).toFixed(1));
+  })
+  totalHours = Number(totalHours.toFixed(1));
+
   return(
     <div className="dashboard">
       <h1>{message}</h1>
@@ -84,8 +90,8 @@ export function Dashboard() {
             <div className="task-stat-container">
               <h2>Total</h2>
               <div className="stat-hour-container">
-                <p>24h (Past two weeks)</p>
-                <p>136h (Total)</p>
+                {/* <p>24h (Past two weeks)</p> */}
+                <p>{`${totalHours}`}h</p>
               </div>
             </div>
 
@@ -123,21 +129,14 @@ export function Dashboard() {
                     return < Bar key={session.sid} session={session} max={max} />
                   })
                 }
-
-
-                {/* {
-                  user.sessions.map((session) => {
-                    return < Bar key={session.sid} session={session} />
-                  })
-                } */}
       
               </div>
             </div>
           </div>
           <div className="dashboard-container">
             <h1>About</h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto soluta placeat libero eius. Ducimus quia culpa quod alias modi est, maiores animi? Ad odit mollitia corrupti accusamus aspernatur quibusdam sint.</p>
-            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora labore accusantium, magnam animi dolore dolorum culpa officiis obcaecati doloribus corrupti placeat neque maxime cupiditate eveniet repellat iure architecto eaque soluta!</p>
+            <p>The Pomodoro technique is a time management method used to focus on work and take breaks at set intervals (25/5, 30/10, or 50/10).</p>
+            <p>Use one of the presets or create your own task and start focusing.</p>
           </div>
         </div>
 

@@ -12,6 +12,7 @@ export function TaskStat({task}:dashboardProps) {
   // 3: Get total
 
   // console.log(task);
+  const hours = Number((task.totalTime / 3600).toFixed(1));
 
   return(
     <div className="task-stat-container">
@@ -19,8 +20,8 @@ export function TaskStat({task}:dashboardProps) {
         <h2>{task.title}</h2>
       </div>
       <div className="stat-hour-container">
-        <p>24h (Past two weeks)</p>
-        <p>136h (Total)</p>
+        {/* <p>24h (Past two weeks)</p> */}
+        <p>{`${hours}`}h</p>
       </div>
     </div> 
   )
